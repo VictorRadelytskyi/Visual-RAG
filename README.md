@@ -29,6 +29,29 @@ Recommended Python version: **3.10–3.12**. The embedding stack depends on
 `sentence-transformers`/PyTorch, which is usually smoother on those versions than on very new
 Python releases.
 
+## Optional Azure OpenAI answer generation
+
+The app works without a language model. If the Azure OpenAI variables below are not present,
+it stays in **retrieval-only mode** and does not attempt to generate an answer.
+
+```bash
+cp .env.example .env
+```
+
+Then fill in:
+
+```dotenv
+AZURE_OPENAI_API_KEY="..."
+AZURE_OPENAI_BASE_URL="https://YOUR-RESOURCE-NAME.openai.azure.com/openai/v1/"
+AZURE_OPENAI_DEPLOYMENT="YOUR_DEPLOYMENT_NAME"
+```
+
+The app loads `.env` automatically at startup.
+
+`AZURE_OPENAI_BASE_URL` must point to your **Azure AI Foundry / Azure OpenAI v1 endpoint**, not the
+public OpenAI API. `AZURE_OPENAI_DEPLOYMENT` should be the **deployment name** configured in Azure,
+not necessarily the underlying model family name.
+
 ## Project structure
 
 ```text
@@ -43,6 +66,7 @@ src/
   projection.py            # UMAP/PCA 2D projection
   retrieval.py             # semantic search
 app.py                     # Streamlit dashboard
+pages/1_Chunk_Detail.py    # drill-down page for a selected chunk
 ```
 
 ## Example questions

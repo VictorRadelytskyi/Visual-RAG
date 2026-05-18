@@ -1,11 +1,12 @@
 beautifulsoup4>=4.12
 faiss-cpu>=1.8
 numpy>=1.26
+openai>=1.100
 pandas>=2.2
 plotly>=5.24
+python-dotenv>=1.0
 requests>=2.32
 scikit-learn>=1.5
 sentence-transformers>=3.0
 streamlit>=1.38
 umap-learn>=0.5
-
