@@ -1,0 +1,186 @@
+[
+  {
+    "id": "solar_system",
+    "title": "Solar System Facts",
+    "category": "overview",
+    "url": "https://science.nasa.gov/solar-system/solar-system-facts/",
+    "path": "raw/solar_system.txt",
+    "characters": 6617
+  },
+  {
+    "id": "planets_overview",
+    "title": "About the Planets",
+    "category": "overview",
+    "url": "https://science.nasa.gov/solar-system/planets/",
+    "path": "raw/planets_overview.txt",
+    "characters": 3512
+  },
+  {
+    "id": "sun",
+    "title": "Sun Facts",
+    "category": "star",
+    "url": "https://science.nasa.gov/sun/facts/",
+    "path": "raw/sun.txt",
+    "characters": 14667
+  },
+  {
+    "id": "mercury",
+    "title": "Mercury Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/mercury/facts",
+    "path": "raw/mercury.txt",
+    "characters": 6202
+  },
+  {
+    "id": "venus",
+    "title": "Venus Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/venus/facts/",
+    "path": "raw/venus.txt",
+    "characters": 14303
+  },
+  {
+    "id": "earth",
+    "title": "Earth Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/earth/facts/",
+    "path": "raw/earth.txt",
+    "characters": 10683
+  },
+  {
+    "id": "mars",
+    "title": "Mars Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/mars/facts/",
+    "path": "raw/mars.txt",
+    "characters": 8804
+  },
+  {
+    "id": "jupiter",
+    "title": "Jupiter Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/jupiter/facts/",
+    "path": "raw/jupiter.txt",
+    "characters": 11254
+  },
+  {
+    "id": "saturn",
+    "title": "Saturn Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/saturn/facts/",
+    "path": "raw/saturn.txt",
+    "characters": 7194
+  },
+  {
+    "id": "uranus",
+    "title": "Uranus Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/uranus/facts/",
+    "path": "raw/uranus.txt",
+    "characters": 6399
+  },
+  {
+    "id": "neptune",
+    "title": "Neptune Facts",
+    "category": "planet",
+    "url": "https://science.nasa.gov/neptune/facts/",
+    "path": "raw/neptune.txt",
+    "characters": 7584
+  },
+  {
+    "id": "moon",
+    "title": "Moon Facts",
+    "category": "moon",
+    "url": "https://science.nasa.gov/moon/facts/",
+    "path": "raw/moon.txt",
+    "characters": 8923
+  },
+  {
+    "id": "moons_overview",
+    "title": "Moons Facts",
+    "category": "overview",
+    "url": "https://science.nasa.gov/solar-system/moons/facts/",
+    "path": "raw/moons_overview.txt",
+    "characters": 5073
+  },
+  {
+    "id": "europa",
+    "title": "Europa Facts",
+    "category": "moon",
+    "url": "https://science.nasa.gov/jupiter/jupiter-moons/europa/europa-facts/",
+    "path": "raw/europa.txt",
+    "characters": 15123
+  },
+  {
+    "id": "ganymede",
+    "title": "Ganymede Facts",
+    "category": "moon",
+    "url": "https://science.nasa.gov/jupiter/jupiter-moons/ganymede/facts/",
+    "path": "raw/ganymede.txt",
+    "characters": 11062
+  },
+  {
+    "id": "callisto",
+    "title": "Callisto Facts",
+    "category": "moon",
+    "url": "https://science.nasa.gov/jupiter/jupiter-moons/callisto/facts/",
+    "path": "raw/callisto.txt",
+    "characters": 3977
+  },
+  {
+    "id": "io",
+    "title": "Io Facts",
+    "category": "moon",
+    "url": "https://science.nasa.gov/jupiter/jupiter-moons/io/facts/",
+    "path": "raw/io.txt",
+    "characters": 4845
+  },
+  {
+    "id": "titan",
+    "title": "Titan Facts",
+    "category": "moon",
+    "url": "https://science.nasa.gov/saturn/moons/titan/facts/",
+    "path": "raw/titan.txt",
+    "characters": 9282
+  },
+  {
+    "id": "enceladus",
+    "title": "Enceladus",
+    "category": "moon",
+    "url": "https://science.nasa.gov/saturn/moons/enceladus",
+    "path": "raw/enceladus.txt",
+    "characters": 5668
+  },
+  {
+    "id": "ceres",
+    "title": "Ceres Facts",
+    "category": "dwarf_planet",
+    "url": "https://science.nasa.gov/dwarf-planets/ceres/facts/",
+    "path": "raw/ceres.txt",
+    "characters": 5404
+  },
+  {
+    "id": "pluto",
+    "title": "Pluto Facts",
+    "category": "dwarf_planet",
+    "url": "https://science.nasa.gov/dwarf-planets/pluto/facts/",
+    "path": "raw/pluto.txt",
+    "characters": 9174
+  },
+  {
+    "id": "asteroids",
+    "title": "Asteroid Facts",
+    "category": "small_body",
+    "url": "https://science.nasa.gov/solar-system/asteroids/facts/",
+    "path": "raw/asteroids.txt",
+    "characters": 13143
+  },
+  {
+    "id": "comets",
+    "title": "Comet Facts",
+    "category": "small_body",
+    "url": "https://science.nasa.gov/solar-system/comets/facts/",
+    "path": "raw/comets.txt",
+    "characters": 5857
+  }
+]

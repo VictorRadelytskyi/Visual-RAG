@@ -1,5 +1,61 @@
 # Visual Exploration of a RAG System and Document Space
 
+## Chosen topic
+
+This implementation uses a corpus of **full NASA Science articles about the Solar System**:
+planets, moons, dwarf planets, asteroids, comets, the Sun, and overview pages.
+
+The corpus is intentionally made of **whole raw documents**, not pre-split passages, so the project
+demonstrates the full RAG preparation workflow:
+
+1. collect raw documents,
+2. split them into chunks,
+3. embed the chunks,
+4. store them in a FAISS vector index,
+5. retrieve nearest neighbors for a query,
+6. visualize the embedding space in Streamlit.
+
+## Quick start
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m scripts.build_all
+streamlit run app.py
+```
+
+Recommended Python version: **3.10–3.12**. The embedding stack depends on
+`sentence-transformers`/PyTorch, which is usually smoother on those versions than on very new
+Python releases.
+
+## Project structure
+
+```text
+data/
+  sources/                 # NASA URL manifest
+  raw/                     # downloaded full documents
+  processed/               # chunks, embeddings, FAISS index, projection
+src/
+  download_corpus.py       # fetch + clean raw NASA articles
+  chunking.py              # local chunking strategy
+  indexing.py              # sentence-transformer embeddings + FAISS
+  projection.py            # UMAP/PCA 2D projection
+  retrieval.py             # semantic search
+app.py                     # Streamlit dashboard
+```
+
+## Example questions
+
+- Which moon may have an ocean beneath its icy surface?
+- Why is Venus hotter than Mercury?
+- Which dwarf planet is located in the asteroid belt?
+- What objects are found in the Kuiper Belt?
+- Which planet is the largest in the Solar System?
+- What are comets made of?
+
+---
+
 ## Project Goal
 
 The goal of this project is to develop a **RAG (Retrieval-Augmented Generation)** system for a selected corpus of documents, with a strong emphasis on **visualizing how the system operates**.
