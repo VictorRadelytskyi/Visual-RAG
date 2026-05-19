@@ -66,6 +66,12 @@ plot_frame["retrieved"] = plot_frame["chunk_id"].isin(result_ids)
 
 x_range = [plot_frame["x"].min(), plot_frame["x"].max()]
 y_range = [plot_frame["y"].min(), plot_frame["y"].max()]
+categories = sorted(plot_frame["category"].dropna().unique())
+palette = px.colors.qualitative.Plotly
+category_colors = {
+    category: palette[index % len(palette)]
+    for index, category in enumerate(categories)
+}
 
 left, right = st.columns(2)
 
@@ -76,6 +82,8 @@ with left:
         x="x",
         y="y",
         color="category",
+        color_discrete_map=category_colors,
+        category_orders={"category": categories},
         hover_data=["title", "chunk_id"],
         title=f"All chunks ({selected_projection})",
     )
@@ -92,6 +100,8 @@ with right:
             x="x",
             y="y",
             color="category",
+            color_discrete_map=category_colors,
+            category_orders={"category": categories},
             hover_data=["title", "chunk_id"],
             text="title",
             title=f"Retrieved chunks only ({selected_projection})",
