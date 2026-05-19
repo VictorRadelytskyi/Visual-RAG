@@ -42,15 +42,20 @@ Then fill in:
 
 ```dotenv
 AZURE_OPENAI_API_KEY="..."
-AZURE_OPENAI_BASE_URL="https://YOUR-RESOURCE-NAME.openai.azure.com/openai/v1/"
+AZURE_OPENAI_BASE_URL="https://YOUR-RESOURCE-NAME.openai.azure.com/"
 AZURE_OPENAI_DEPLOYMENT="YOUR_DEPLOYMENT_NAME"
+AZURE_OPENAI_API_VERSION="YOUR_API_VERSION"
 ```
 
 The app loads `.env` automatically at startup.
 
-`AZURE_OPENAI_BASE_URL` must point to your **Azure AI Foundry / Azure OpenAI v1 endpoint**, not the
-public OpenAI API. `AZURE_OPENAI_DEPLOYMENT` should be the **deployment name** configured in Azure,
-not necessarily the underlying model family name.
+`AZURE_OPENAI_BASE_URL` must point to your **Azure OpenAI resource endpoint**, not the public
+OpenAI API. For the current generator code, use the resource endpoint such as
+`https://YOUR-RESOURCE-NAME.openai.azure.com/`, not a `/openai/v1/` URL.
+
+`AZURE_OPENAI_DEPLOYMENT` should be the **deployment name** configured in Azure, not necessarily
+the underlying model family name. `AZURE_OPENAI_API_VERSION` should match an API version supported
+by your Azure OpenAI resource/deployment.
 
 ## Project structure
 

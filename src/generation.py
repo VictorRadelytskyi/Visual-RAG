@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 
-from openai import OpenAI
+from openai import AzureOpenAI
 
 
 def azure_openai_is_configured() -> bool:
@@ -20,17 +20,18 @@ def generate_answer(query: str, chunks: list[dict]) -> str | None:
     if not azure_openai_is_configured():
         return None
 
-    client = OpenAI(
-        api_key=os.environ["AZURE_OPENAI_API_KEY"],
-        base_url=os.environ["AZURE_OPENAI_BASE_URL"].rstrip("/") + "/",
+    client = AzureOpenAI(
+        api_version = os.environ['AZURE_OPENAI_API_VERSION'],
+        azure_endpoint = os.environ['AZURE_OPENAI_BASE_URL'],
+        api_key = os.environ['AZURE_OPENAI_API_KEY'],
     )
     context = "\n\n".join(
         f"[{index}] {chunk['title']} ({chunk['chunk_id']}):\n{chunk['text']}"
         for index, chunk in enumerate(chunks, start=1)
     )
-    response = client.responses.create(
+    response = client.chat.completions.create(
         model=os.environ["AZURE_OPENAI_DEPLOYMENT"],
-        input=[
+        messages=[
             {
                 "role": "system",
                 "content": (
@@ -45,4 +46,4 @@ def generate_answer(query: str, chunks: list[dict]) -> str | None:
             },
         ],
     )
-    return response.output_text.strip()
+    return response.choices[0].message.content.strip()
