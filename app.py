@@ -35,10 +35,37 @@ top_k = st.slider("Number of nearest chunks", min_value=3, max_value=10, value=5
 results = retriever.search(query, top_k=top_k) if query.strip() else []
 result_ids = {result["chunk_id"] for result in results}
 
-left, right = st.columns([1.25, 1])
+st.subheader("Generated answer")
+if not azure_openai_is_configured():
+    st.info(
+        "Azure OpenAI is not configured, so the app is running in retrieval-only mode. "
+        "Add the required environment variables to enable answer generation."
+    )
+elif results:
+    if st.button("Generate answer", type="primary"):
+        with st.spinner("Generating answer from retrieved context..."):
+            st.session_state["generated_answer"] = generate_answer(query, results)
+            st.session_state["generated_answer_query"] = query
+
+    if st.session_state.get("generated_answer_query") == query:
+        st.write(st.session_state["generated_answer"])
+    else:
+        st.caption("Click **Generate answer** to send the retrieved chunks to Azure OpenAI.")
+
+st.divider()
+
+projection_methods = projection["projection"].drop_duplicates().tolist()
+selected_projection = st.selectbox(
+    "Dimensionality reduction method",
+    projection_methods,
+    index=projection_methods.index("UMAP") if "UMAP" in projection_methods else 0,
+)
+
+left, right = st.columns([1.55, 1])
 
 with left:
-    plot_frame = projection.copy()
+    st.subheader("Embedding map")
+    plot_frame = projection[projection["projection"] == selected_projection].copy()
     plot_frame["retrieved"] = plot_frame["chunk_id"].isin(result_ids)
     fig = px.scatter(
         plot_frame,
@@ -47,61 +74,47 @@ with left:
         color="category",
         symbol="retrieved",
         hover_data=["title", "chunk_id"],
-        title=f"Embedding space ({plot_frame['projection'].iloc[0]})",
+        title=f"Embedding space ({selected_projection})",
     )
-    fig.update_traces(marker={"size": 10})
+    fig.update_traces(marker={"size": 11})
+    fig.update_layout(height=720)
     st.plotly_chart(fig, use_container_width=True)
 
 with right:
-    st.subheader("Generated answer")
-    if not azure_openai_is_configured():
-        st.info(
-            "Azure OpenAI is not configured, so the app is running in retrieval-only mode. "
-            "Add the required environment variables to enable answer generation."
+    st.subheader("Retrieved entities")
+    if results:
+        table = pd.DataFrame(
+            [
+                {
+                    "rank": rank,
+                    "title": result["title"],
+                    "category": result["category"],
+                    "score": round(result["score"], 3),
+                    "chunk_id": result["chunk_id"],
+                    "details": f"./Chunk_Detail?chunk_id={result['chunk_id']}",
+                }
+                for rank, result in enumerate(results, start=1)
+            ]
         )
-    elif results:
-        if st.button("Generate answer", type="primary"):
-            with st.spinner("Generating answer from retrieved context..."):
-                st.session_state["generated_answer"] = generate_answer(query, results)
-                st.session_state["generated_answer_query"] = query
+        st.dataframe(
+            table,
+            hide_index=True,
+            use_container_width=True,
+            column_config={
+                "details": st.column_config.LinkColumn(
+                    "details",
+                    display_text="Open chunk",
+                )
+            },
+        )
 
-        if st.session_state.get("generated_answer_query") == query:
-            st.write(st.session_state["generated_answer"])
-        else:
-            st.caption("Click **Generate answer** to send the retrieved chunks to Azure OpenAI.")
-
-st.subheader("Relevant chunks")
-if results:
-    table = pd.DataFrame(
-        [
-            {
-                "rank": rank,
-                "title": result["title"],
-                "category": result["category"],
-                "score": round(result["score"], 3),
-                "chunk_id": result["chunk_id"],
-                "details": f"./Chunk_Detail?chunk_id={result['chunk_id']}",
-            }
-            for rank, result in enumerate(results, start=1)
-        ]
-    )
-    st.dataframe(
-        table,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            "details": st.column_config.LinkColumn(
-                "details",
-                display_text="Open chunk",
-            )
-        },
-    )
-
-    st.markdown("### Retrieved text")
-    for rank, result in enumerate(results, start=1):
-        with st.expander(f"{rank}. {result['title']} · score {result['score']:.3f}", expanded=rank <= 2):
-            st.caption(f"{result['category']} · {result['chunk_id']}")
-            st.write(result["text"])
+        st.markdown("### Retrieved text")
+        for rank, result in enumerate(results, start=1):
+            with st.expander(f"{rank}. {result['title']} · score {result['score']:.3f}", expanded=rank <= 2):
+                st.caption(f"{result['category']} · {result['chunk_id']}")
+                st.write(result["text"])
+    else:
+        st.info("Ask a question to retrieve matching chunks.")
 
 st.subheader("Retrieval notes")
 st.write(
