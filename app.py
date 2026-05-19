@@ -61,60 +61,81 @@ selected_projection = st.selectbox(
     index=projection_methods.index("UMAP") if "UMAP" in projection_methods else 0,
 )
 
-left, right = st.columns([1.55, 1])
+plot_frame = projection[projection["projection"] == selected_projection].copy()
+plot_frame["retrieved"] = plot_frame["chunk_id"].isin(result_ids)
+
+x_range = [plot_frame["x"].min(), plot_frame["x"].max()]
+y_range = [plot_frame["y"].min(), plot_frame["y"].max()]
+
+left, right = st.columns(2)
 
 with left:
-    st.subheader("Embedding map")
-    plot_frame = projection[projection["projection"] == selected_projection].copy()
-    plot_frame["retrieved"] = plot_frame["chunk_id"].isin(result_ids)
+    st.subheader("Full embedding map")
     fig = px.scatter(
         plot_frame,
         x="x",
         y="y",
         color="category",
-        symbol="retrieved",
         hover_data=["title", "chunk_id"],
-        title=f"Embedding space ({selected_projection})",
+        title=f"All chunks ({selected_projection})",
     )
-    fig.update_traces(marker={"size": 11})
-    fig.update_layout(height=720)
+    fig.update_traces(marker={"size": 10})
+    fig.update_layout(height=620, xaxis_range=x_range, yaxis_range=y_range)
     st.plotly_chart(fig, use_container_width=True)
 
 with right:
-    st.subheader("Retrieved entities")
-    if results:
-        table = pd.DataFrame(
-            [
-                {
-                    "rank": rank,
-                    "title": result["title"],
-                    "category": result["category"],
-                    "score": round(result["score"], 3),
-                    "chunk_id": result["chunk_id"],
-                    "details": f"./Chunk_Detail?chunk_id={result['chunk_id']}",
-                }
-                for rank, result in enumerate(results, start=1)
-            ]
+    st.subheader("Retrieved chunks on the map")
+    retrieved_frame = plot_frame[plot_frame["retrieved"]].copy()
+    if not retrieved_frame.empty:
+        retrieved_fig = px.scatter(
+            retrieved_frame,
+            x="x",
+            y="y",
+            color="category",
+            hover_data=["title", "chunk_id"],
+            text="title",
+            title=f"Retrieved chunks only ({selected_projection})",
         )
-        st.dataframe(
-            table,
-            hide_index=True,
-            use_container_width=True,
-            column_config={
-                "details": st.column_config.LinkColumn(
-                    "details",
-                    display_text="Open chunk",
-                )
-            },
-        )
-
-        st.markdown("### Retrieved text")
-        for rank, result in enumerate(results, start=1):
-            with st.expander(f"{rank}. {result['title']} · score {result['score']:.3f}", expanded=rank <= 2):
-                st.caption(f"{result['category']} · {result['chunk_id']}")
-                st.write(result["text"])
+        retrieved_fig.update_traces(marker={"size": 14}, textposition="top center")
+        retrieved_fig.update_layout(height=620, xaxis_range=x_range, yaxis_range=y_range)
+        st.plotly_chart(retrieved_fig, use_container_width=True)
     else:
         st.info("Ask a question to retrieve matching chunks.")
+
+st.subheader("Retrieved chunks")
+if results:
+    table = pd.DataFrame(
+        [
+            {
+                "rank": rank,
+                "title": result["title"],
+                "category": result["category"],
+                "score": round(result["score"], 3),
+                "chunk_id": result["chunk_id"],
+                "details": f"./Chunk_Detail?chunk_id={result['chunk_id']}",
+            }
+            for rank, result in enumerate(results, start=1)
+        ]
+    )
+    st.dataframe(
+        table,
+        hide_index=True,
+        use_container_width=True,
+        column_config={
+            "details": st.column_config.LinkColumn(
+                "details",
+                display_text="Open chunk",
+            )
+        },
+    )
+
+    st.markdown("### Retrieved text")
+    for rank, result in enumerate(results, start=1):
+        with st.expander(f"{rank}. {result['title']} · score {result['score']:.3f}", expanded=rank <= 2):
+            st.caption(f"{result['category']} · {result['chunk_id']}")
+            st.write(result["text"])
+else:
+    st.info("Ask a question to retrieve matching chunks.")
 
 st.subheader("Retrieval notes")
 st.write(
