@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import html
+import textwrap
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -12,6 +15,12 @@ from src.retrieval import Retriever
 st.set_page_config(page_title="Visual RAG: Solar System", layout="wide")
 st.title("Visual RAG: Solar System")
 st.caption("Semantic search over full NASA solar-system documents, chunked locally and visualized in embedding space.")
+
+
+def format_chunk_preview(text: str, line_width: int = 76, max_lines: int = 4) -> str:
+    normalized = " ".join(str(text).split())
+    lines = textwrap.wrap(normalized, width=line_width, max_lines=max_lines, placeholder="...")
+    return "<br>".join(html.escape(line) for line in lines)
 
 
 @st.cache_resource
@@ -63,6 +72,14 @@ selected_projection = st.selectbox(
 
 plot_frame = projection[projection["projection"] == selected_projection].copy()
 plot_frame["retrieved"] = plot_frame["chunk_id"].isin(result_ids)
+plot_frame["chunk_preview"] = plot_frame["text"].map(format_chunk_preview)
+
+hover_template = (
+    "<b>%{customdata[0]}</b><br>"
+    "Chunk: %{customdata[1]}<br><br>"
+    "%{customdata[2]}"
+    "<extra></extra>"
+)
 
 x_range = [plot_frame["x"].min(), plot_frame["x"].max()]
 y_range = [plot_frame["y"].min(), plot_frame["y"].max()]
@@ -84,10 +101,10 @@ with left:
         color="category",
         color_discrete_map=category_colors,
         category_orders={"category": categories},
-        hover_data=["title", "chunk_id"],
+        custom_data=["title", "chunk_id", "chunk_preview"],
         title=f"All chunks ({selected_projection})",
     )
-    fig.update_traces(marker={"size": 10})
+    fig.update_traces(marker={"size": 10}, hovertemplate=hover_template)
     fig.update_layout(height=620, xaxis_range=x_range, yaxis_range=y_range)
     st.plotly_chart(fig, use_container_width=True)
 
@@ -102,11 +119,11 @@ with right:
             color="category",
             color_discrete_map=category_colors,
             category_orders={"category": categories},
-            hover_data=["title", "chunk_id"],
+            custom_data=["title", "chunk_id", "chunk_preview"],
             text="title",
             title=f"Retrieved chunks only ({selected_projection})",
         )
-        retrieved_fig.update_traces(marker={"size": 14}, textposition="top center")
+        retrieved_fig.update_traces(marker={"size": 14}, textposition="top center", hovertemplate=hover_template)
         retrieved_fig.update_layout(height=620, xaxis_range=x_range, yaxis_range=y_range)
         st.plotly_chart(retrieved_fig, use_container_width=True)
     else:
