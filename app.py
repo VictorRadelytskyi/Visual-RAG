@@ -10,7 +10,20 @@ import streamlit as st
 from src.config import PROCESSED_DIR
 from src.generation import azure_openai_is_configured, generate_answer
 from src.retrieval import Retriever
-
+ 
+st.markdown("""
+<style>
+    div[data-testid="stToolbar"] {
+        display: none !important;
+    }
+    div[data-testid="stDecoration"] {
+        display: none !important;
+    }
+    div[data-testid="stStatusWidget"] {
+        visibility: hidden !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="Visual RAG: Solar System", layout="wide")
 st.title("Visual RAG: Solar System")

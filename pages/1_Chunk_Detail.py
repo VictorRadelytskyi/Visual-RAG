@@ -4,6 +4,19 @@ import streamlit as st
 
 from src.chunk_store import get_chunk
 
+st.markdown("""
+<style>
+    div[data-testid="stToolbar"] {
+        display: none !important;
+    }
+    div[data-testid="stDecoration"] {
+        display: none !important;
+    }
+    div[data-testid="stStatusWidget"] {
+        visibility: hidden !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="Chunk detail", layout="wide")
 st.title("Chunk detail")
