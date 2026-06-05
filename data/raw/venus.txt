@@ -56,6 +56,8 @@ Based on its brightness, scientists at NASA’s Jet Propulsion Laboratory (JPL) 
 
 Interestingly, Zoozve also orbits relatively close to Earth but does not pose a threat to our planet. For the next 175 years, the closest Zoozve will get to Earth is in the year 2149 when it will be about 2.2 million miles (3.5 million kilometers) away, or about 9 times the distance from Earth to the Moon.
 
+How Zoozve Got Its Name
+
 After the discovery in 2002, Skiff reported his finding to the Minor Planet Center , which is funded by a Near-Earth Object (NEO) Observations Program grant from NASA’s Planetary Defense Coordination Office . At that time, it was given the provisional name 2002 VE68. Skiff said he didn’t realize the asteroid’s importance and forgot about the object until a radio show host reached out to him in 2023 about naming it Zoozve.
 
 Soon after Skiff’s discovery, a team of astronomers, including Seppo Mikkola with the University of Turku in Finland and Paul Wiegert with the University of Western Ontario in London, determined that the object was the first of its kind to be discovered. They think that Zoozve may have been a companion to Venus for at least 7,000 years, and that Earth’s gravity helped push Zoozve into its present orbit.
@@ -80,7 +82,7 @@ NASA’s Magellan spacecraft, which ended a five-year mission to Venus in 1994, 
 
 Surface
 
-The Soviet Union sent a series of probes to Venus between 1961 and 1984 as part of its Venera program (Venera is Russian for Venus). Ten probes made it to the surface, and a few functioned briefly after landing. The longest survivor lasted two hours; the shortest, 23 minutes. Photos snapped before the landers fried show a barren, dim, and rocky landscape, and a sky that is likely some shade of sulfur yellow.
+Venus is the hottest planet in our solar system, with surface temperatures about 872 degrees Fahrenheit (467 Celsius). And atmospheric pressure at the surface squeezes with the same force as being more than 3,000 feet underwater on Earth (930 meters). The Soviet Union sent a series of probes to Venus between 1961 and 1984 as part of its Venera program (Venera is Russian for Venus). Ten probes made it to the surface, and a few functioned briefly after landing. The longest survivor lasted two hours; the shortest, 23 minutes. Photos they snapped before the landers cooked show a barren, dim, and rocky landscape, and a sky that is likely some shade of sulfur yellow.
 
 Volcanoes and tectonic forces appear to have erased most traces of the early surface of Venus. Newer computer models indicate the resurfacing may have happened piecemeal over an extended period of time. The average age of surface features could be as young as 150 million years, with some older surfaces mixed in.
 
@@ -100,7 +102,7 @@ Tesserae, terrain with intricate patterns of ridges and grooves that suggest the
 
 Atmosphere
 
-Venus’ atmosphere is one of extremes. With the hottest surface in the solar system, apart from the Sun itself, Venus is hotter even than the innermost planet, charbroiled Mercury. The atmosphere is mostly carbon dioxide — the same gas driving the greenhouse effect on Venus and Earth — with clouds composed of sulfuric acid. And at the surface, the hot, high-pressure carbon dioxide behaves in a corrosive fashion. But higher up in the atmosphere, temperatures and pressure begin to ease.
+Venus’ atmosphere is one of extremes. With the hottest surface in the solar system, apart from the Sun itself, Venus is hotter even than the innermost planet, charbroiled Mercury. The atmosphere is mostly carbon dioxide — the same gas drives the greenhouse effect on both Venus and Earth — with dense clouds composed of sulfuric acid. The atmospheric pressure at the surface measures a crushing 93 times what it is at sea level on Earth. At the surface, the hot, high-pressure carbon dioxide behaves in a corrosive fashion. But higher up in the atmosphere, temperatures and pressure begin to ease.
 
 Magnetosphere
 

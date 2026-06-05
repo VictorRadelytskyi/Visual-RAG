@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from tqdm import tqdm
 
 import requests
 from bs4 import BeautifulSoup
@@ -39,7 +40,7 @@ def download_documents() -> list[dict]:
     metadata: list[dict] = []
 
     headers = {"User-Agent": "Visual-RAG student project / educational use"}
-    for source in sources:
+    for source in tqdm(sources, desc="Downloading documents"):
         response = requests.get(source["url"], headers=headers, timeout=30)
         response.raise_for_status()
         text = extract_article_text(response.text)

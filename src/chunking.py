@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from tqdm import tqdm
 
 from src.config import DEFAULT_CHUNK_OVERLAP, DEFAULT_CHUNK_SIZE, PROCESSED_DIR, RAW_DIR
 
@@ -30,7 +31,7 @@ def build_chunks(
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     chunks: list[dict] = []
 
-    for document in metadata:
+    for document in tqdm(metadata, desc="Building chunks"):
         raw_path = RAW_DIR.parent / document["path"]
         text = raw_path.read_text(encoding="utf-8")
         for index, chunk in enumerate(chunk_words(text, chunk_size, overlap)):

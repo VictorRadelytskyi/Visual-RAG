@@ -48,6 +48,9 @@ def load_projection() -> pd.DataFrame:
 
 retriever = load_retriever()
 projection = load_projection()
+embedding_count = int(getattr(retriever.index, "ntotal", len(retriever.chunks)))
+
+st.metric("Number of embeddings", f"{embedding_count:,}")
 
 query = st.text_input(
     "Ask a question",
